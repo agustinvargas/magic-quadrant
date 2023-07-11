@@ -37,6 +37,7 @@ export default function App() {
   const [datasets, setDatasets] = useState(
     fillDataset(FILTERS_TYPES.ALL, moviesData)
   );
+  const [showTicks, setShowTicks] = useState(false)
 
   // OPTIONS
   const options = {
@@ -128,7 +129,7 @@ export default function App() {
           color: "white"
         },
         ticks: {
-          display: false
+          display: showTicks
         },
         title: {
           display: true,
@@ -150,7 +151,7 @@ export default function App() {
           color: "white"
         },
         ticks: {
-          display: false
+          display: showTicks
         },
         title: {
           display: true,
@@ -172,7 +173,8 @@ export default function App() {
 
   return (
     <div style={{ maxWidth: "1300px", margin: "auto" }}>
-      <button onClick={() => chartRef.current.resetZoom()}>Resetear zoom</button>
+      <button onClick={() => chartRef.current.resetZoom()}>Reset Zoom</button>
+      <button onClick={() => setShowTicks(prev => !prev)}>Toogle Ticks</button>
       <label>
         Ver por...
         <br />
