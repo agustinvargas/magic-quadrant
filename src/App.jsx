@@ -197,7 +197,7 @@ export default function App() {
 				},
 				title: {
 					display: true,
-					text: 'Eje X',
+					text: 'Recaudación (Eje X)',
 					padding: 10,
 					font: {
 						size: 20,
@@ -222,7 +222,7 @@ export default function App() {
 				},
 				title: {
 					display: true,
-					text: 'Eje Y',
+					text: 'Calificación (Eje Y)',
 					padding: 10,
 					font: {
 						size: 20,
