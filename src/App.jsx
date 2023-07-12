@@ -35,7 +35,11 @@ import {
 	FormControl,
 	Typography,
 	Grid,
+	TextField,
 } from '@mui/material';
+
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
 ChartJS.register(
 	LinearScale,
@@ -234,9 +238,39 @@ export default function App() {
 		datasets,
 	};
 
+	const handleDownloadPDF = () => {
+		const chart = chartRef.current.canvas;
+
+		html2canvas(chart, {
+			useCORS: true,
+			scale: 2, // Ajustar
+		}).then(canvas => {
+			const imgData = canvas.toDataURL('image/png');
+			const pdf = new jsPDF('l', 'mm', 'a4'); // Utiliza el formato landscape para el PDF
+			const imgWidth = 277; // Ajusta el ancho de la imagen
+			const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+			pdf.setFontSize(16); // Establece el tamaño de letra para "Benchmark"
+			pdf.text('Benchmark', pdf.internal.pageSize.getWidth() / 2, 10, {
+				align: 'center',
+			}); // Alinea el texto "Benchmark" al centro
+
+			pdf.addImage(imgData, 'PNG', 10, 20, imgWidth, imgHeight); // Ajusta la posición vertical según el tamaño del texto
+
+			pdf.setFontSize(10); // Establece un tamaño de letra más pequeño para "Información confidencial"
+			pdf.text('Información confidencial', 10, 20 + imgHeight + 10); // Agrega el texto "Información confidencial" debajo del gráfico
+
+			pdf.save('chart.pdf');
+		});
+	};
+
 	return (
 		<Box>
 			<Container>
+				<Typography variant="h3" gutterBottom>
+					Prueba funcional de Magic Quadrant
+				</Typography>
+
 				<Grid container spacing={2}>
 					<Grid item xs={12} lg={8}>
 						<Stack spacing={2} direction="row">
@@ -264,39 +298,76 @@ export default function App() {
 							>
 								Centrar ejes
 							</Button>
+							<Button
+								variant="outlined"
+								size="small"
+								onClick={() => handleDownloadPDF()}
+							>
+								Descargar PDF
+							</Button>
 						</Stack>
 					</Grid>
 					<Grid item xs={6} lg={2}>
-						<div>
-							<label htmlFor="axe-y-range">
-								Línea divosora del eje Y
-							</label>
-							<Slider
-								id="axe-y-range"
-								max={axesVal.x.max}
-								min={axesVal.x.min}
-								defaultValue={quadrantAxeX}
-								onChange={e => setQuadrantAxeX(e.target.value)}
-								value={quadrantAxeX}
-								valueLabelDisplay="auto"
-							/>
-						</div>
+						<TextField
+							label="Línea divosoria Y"
+							type="number"
+							small
+							InputLabelProps={{
+								shrink: true,
+							}}
+							variant="standard"
+							onChange={e => {
+								if (
+									e.target.value > axesVal.x.max ||
+									e.target.value < axesVal.x.min
+								) {
+									return;
+								} else {
+									setQuadrantAxeX(e.target.value);
+								}
+							}}
+							value={quadrantAxeX}
+						/>
+
+						<Slider
+							max={axesVal.x.max}
+							min={axesVal.x.min}
+							defaultValue={quadrantAxeX}
+							onChange={e => setQuadrantAxeX(e.target.value)}
+							value={quadrantAxeX}
+							valueLabelDisplay="auto"
+						/>
 					</Grid>
 					<Grid item xs={6} lg={2}>
-						<div>
-							<label htmlFor="axe-x-range">
-								Línea divosora del eje X
-							</label>
-							<Slider
-								id="axe-x-range"
-								valueLabelDisplay="auto"
-								value={quadrantAxeY}
-								onChange={e => setQuadrantAxeY(e.target.value)}
-								defaultValue={quadrantAxeY}
-								max={axesVal.y.max}
-								min={axesVal.y.min}
-							/>
-						</div>
+						<TextField
+							label="Línea divosoria X"
+							type="number"
+							small
+							InputLabelProps={{
+								shrink: true,
+							}}
+							variant="standard"
+							onChange={e => {
+								if (
+									e.target.value > axesVal.y.max ||
+									e.target.value < axesVal.y.min
+								) {
+									return;
+								} else {
+									setQuadrantAxeX(e.target.value);
+								}
+							}}
+							value={quadrantAxeY}
+						/>
+
+						<Slider
+							valueLabelDisplay="auto"
+							value={quadrantAxeY}
+							onChange={e => setQuadrantAxeY(e.target.value)}
+							defaultValue={quadrantAxeY}
+							max={axesVal.y.max}
+							min={axesVal.y.min}
+						/>
 					</Grid>
 					<Grid item xs={12} lg={2}>
 						<Stack>
@@ -310,8 +381,6 @@ export default function App() {
 								<Select
 									labelId="tags-select"
 									id="tags-select"
-									// value={age}
-									// onChange={handleChange}
 									label="Etiquetas"
 									value={tagSelect}
 									onChange={event => {
@@ -349,7 +418,7 @@ export default function App() {
 									}}
 								>
 									<MenuItem value={FILTERS_TYPES.ALL}>
-										Todos
+										Todas
 									</MenuItem>
 									<MenuItem value={FILTERS_TYPES.COUNTRY}>
 										País
@@ -386,6 +455,15 @@ export default function App() {
 				<p>
 					Mantener presionada la tecla CTRL y usar la rueda del mouse
 					o dibujar un área dentro del gráfico.
+				</p>
+			</Container>
+			<Container>
+				<Typography variant="h6" gutterBottom>
+					PDF
+				</Typography>
+				<p>
+					El gráfico que ve el usuario es lo que se imprime en el PDF.
+					Ergo, si tiene filtros activos, se anexa con estos.
 				</p>
 			</Container>
 		</Box>
