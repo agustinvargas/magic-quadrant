@@ -114,9 +114,7 @@ export default function App() {
 				footerColor: 'lightGray',
 				footerMarginTop: 12,
 				callbacks: {
-					title: items => {
-						items[0].raw.label;
-					},
+					title: items => items[0].raw.label,
 					label: items => items.dataset.label,
 					footer(items) {
 						const { raw } = items[0];

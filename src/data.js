@@ -83,7 +83,7 @@ export const API_DATA = {
 		{
 			label: 'Bohemian Rhapsody',
 			rating: 8.3,
-			gross: 186856,
+			gross: 786856,
 			is_local: false,
 			genre: 'musical',
 		},
@@ -106,7 +106,7 @@ export const API_DATA = {
 			rating: 2.9,
 			gross: 159326,
 			is_local: false,
-			genre: 'horror',
+			genre: 'drama',
 		},
 		{
 			label: 'The Meg',
