@@ -1,62 +1,41 @@
-export const META = [
+export const QUADRANTS_INFO = [
 	[
 		{
-			color: 'rgb(255, 174, 201)',
-			// backgroundColor: "rgba(255, 174, 201, 0.5)",
 			label: 'Recaudación baja, calificación baja',
+			bg: 'rgb(240, 240, 240, 0.6)',
+			position: {
+				x: 'center',
+				y: 'end',
+			},
 		},
 		{
-			color: 'rgb(159, 168, 218)',
-			// backgroundColor: "rgba(159, 168, 218, 0.5)",
 			label: 'Recaudación alta, calificación baja',
+			bg: 'rgb(240, 240, 240, 0.85)',
+			position: {
+				x: 'center',
+				y: 'end',
+			},
 		},
 	],
 	[
 		{
-			color: 'rgb(255, 245, 157)',
-			// backgroundColor: "rgba(255, 245, 157, 0.5)",
 			label: 'Recaudación baja, calificación alta',
+			bg: 'rgb(240, 240, 240, 0.1)',
+			position: {
+				x: 'center',
+				y: 'start',
+			},
 		},
 		{
-			color: 'rgb(165, 214, 167)',
-			// backgroundColor: "rgba(165, 214, 167, 0.5)",
 			label: 'Recaudación alta, calificación alta',
+			bg: 'rgb(240, 240, 240, 0.35)',
+			position: {
+				x: 'center',
+				y: 'start',
+			},
 		},
 	],
 ];
-
-// export function gradient({ chart: { ctx }, element }, color, rtl = false) {
-//   const g = ctx.createLinearGradient(
-//     element.x,
-//     element.y,
-//     element.x2,
-//     element.y
-//   );
-//   g.addColorStop(rtl ? 1 : 0, color);
-//   g.addColorStop(rtl ? 0 : 1, "transparent");
-//   return g;
-// }
-
-// export function gridColor(context) {
-//   if (context.tick.value === 5) {
-//     return "lightGray";
-//   } else if (context.tick.value === 0 || context.tick.value === 10) {
-//     return "lightGray";
-//   }
-//   return "transparent";
-// }
-
-export const tagFilters = {
-	country: {
-		taget: 'is_local',
-		opt1: {
-			label: 'Películas nacionales',
-		},
-		opt2: {
-			label: 'Películas internacionales',
-		},
-	},
-};
 
 export const FILTERS_TYPES = {
 	ALL: 'ALL',
@@ -68,7 +47,7 @@ export const fillDataset = (type, data) => {
 	if (type === FILTERS_TYPES.ALL) {
 		return [
 			{
-				label: 'Películas nacionales',
+				label: 'Nacionales',
 				data: data
 					.filter(movie => movie.is_local)
 					.map(movie => ({
@@ -77,10 +56,10 @@ export const fillDataset = (type, data) => {
 						label: movie.label,
 					})),
 				backgroundColor: 'rgb(0,0,0, 0.3)',
-				radius: 8,
+				radius: 7,
 			},
 			{
-				label: 'Películas internacionales',
+				label: 'Internacionales',
 				data: data
 					.filter(movie => !movie.is_local)
 					.map(movie => ({
@@ -89,7 +68,7 @@ export const fillDataset = (type, data) => {
 						label: movie.label,
 					})),
 				backgroundColor: 'rgb(0,0,0, 0.3)',
-				radius: 8,
+				radius: 7,
 			},
 			{
 				label: 'Drama',
@@ -101,7 +80,7 @@ export const fillDataset = (type, data) => {
 						label: movie.label,
 					})),
 				backgroundColor: 'rgb(0,0,0, 0.3)',
-				radius: 8,
+				radius: 7,
 			},
 			{
 				label: 'Comedia',
@@ -113,7 +92,7 @@ export const fillDataset = (type, data) => {
 						label: movie.label,
 					})),
 				backgroundColor: 'rgb(0,0,0, 0.3)',
-				radius: 8,
+				radius: 7,
 			},
 			{
 				label: 'Acción',
@@ -125,7 +104,7 @@ export const fillDataset = (type, data) => {
 						label: movie.label,
 					})),
 				backgroundColor: 'rgb(0,0,0, 0.3)',
-				radius: 8,
+				radius: 7,
 			},
 			{
 				label: 'Musical',
@@ -137,7 +116,7 @@ export const fillDataset = (type, data) => {
 						label: movie.label,
 					})),
 				backgroundColor: 'rgb(0,0,0, 0.3)',
-				radius: 8,
+				radius: 7,
 			},
 			{
 				label: 'Superhéroes',
@@ -149,14 +128,14 @@ export const fillDataset = (type, data) => {
 						label: movie.label,
 					})),
 				backgroundColor: 'rgb(0,0,0, 0.3)',
-				radius: 8,
+				radius: 7,
 			},
 		];
 	}
 	if (type === FILTERS_TYPES.COUNTRY) {
 		return [
 			{
-				label: 'Películas nacionales',
+				label: 'Nacionales',
 				data: data
 					.filter(movie => movie.is_local)
 					.map(movie => ({
@@ -166,10 +145,10 @@ export const fillDataset = (type, data) => {
 					})),
 				backgroundColor: 'blue',
 
-				radius: 8,
+				radius: 7,
 			},
 			{
-				label: 'Películas internacionales',
+				label: 'Internacionales',
 				data: data
 					.filter(movie => !movie.is_local)
 					.map(movie => ({
@@ -179,7 +158,7 @@ export const fillDataset = (type, data) => {
 					})),
 				backgroundColor: 'green',
 
-				radius: 8,
+				radius: 7,
 			},
 		];
 	}
@@ -195,7 +174,7 @@ export const fillDataset = (type, data) => {
 						label: movie.label,
 					})),
 				backgroundColor: 'blue',
-				radius: 8,
+				radius: 7,
 			},
 			{
 				label: 'Comedia',
@@ -207,7 +186,7 @@ export const fillDataset = (type, data) => {
 						label: movie.label,
 					})),
 				backgroundColor: 'red',
-				radius: 8,
+				radius: 7,
 			},
 			{
 				label: 'Acción',
@@ -219,7 +198,7 @@ export const fillDataset = (type, data) => {
 						label: movie.label,
 					})),
 				backgroundColor: 'grey',
-				radius: 8,
+				radius: 7,
 			},
 			{
 				label: 'Musical',
@@ -231,7 +210,7 @@ export const fillDataset = (type, data) => {
 						label: movie.label,
 					})),
 				backgroundColor: 'pink',
-				radius: 8,
+				radius: 7,
 			},
 			{
 				label: 'Superhéroes',
@@ -243,22 +222,43 @@ export const fillDataset = (type, data) => {
 						label: movie.label,
 					})),
 				backgroundColor: 'black',
-				radius: 8,
+				radius: 7,
 			},
 		];
 	}
 };
 
-// const datasetObj = (data, label, key, bool = true, labelColor = false) => {
-//   return {
-//     label,
-//     data: data
-//       .filter((movie) => movie[key] === bool)
-//       .map((movie) => ({
-//         x: movie.gross,
-//         y: movie.rating
-//       })),
-//     backgroundColor: labelColor || "rgb(0,0,0, 0.5)",
-//     radius: 8
-//   };
-// };
+export const chartAreaBorder = {
+	id: 'chartAreaBorder',
+	beforeDraw(chart, args, options) {
+		const {
+			ctx,
+			chartArea: { left, top, width, height },
+		} = chart;
+		ctx.save();
+		ctx.strokeStyle = options.borderColor;
+		ctx.lineWidth = options.borderWidth;
+		ctx.setLineDash(options.borderDash || []);
+		ctx.lineDashOffset = options.borderDashOffset;
+		ctx.strokeRect(left, top, width, height);
+		ctx.restore();
+	},
+};
+
+export const getQuadrant = ({ xMin, xMax, yMin, yMax, quadrant }) => {
+	return {
+		type: 'box',
+		backgroundColor: quadrant.bg,
+		xMin,
+		xMax,
+		yMin,
+		yMax,
+		label: {
+			content: quadrant.label,
+			position: {
+				x: quadrant.position.x,
+				y: quadrant.position.y,
+			},
+		},
+	};
+};
