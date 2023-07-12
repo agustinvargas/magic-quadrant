@@ -466,6 +466,14 @@ export default function App() {
 					Ergo, si tiene filtros activos, se anexa con estos.
 				</p>
 			</Container>
+			<Container>
+				<Typography variant="h6" gutterBottom>
+					Código
+				</Typography>
+				<a href="https://github.com/agustinvargas/magic-quadrant">
+					Github
+				</a>
+			</Container>
 		</Box>
 	);
 }
